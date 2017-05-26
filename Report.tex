@@ -33,82 +33,77 @@ This was a joint work by George Drummond and Ryan Cox in accordance with the cou
 \section{ Problem formulation}
 We wish to formulate an optimization problem for generic values of X, Y and Z (with $ Y> 3$) such that the load on all transit nodes is balanced.
 
-\subsection{decision and auxiliary variables}
-Let $y_{ik}$ be the amount of flow on the link between a given source node $S_i$ and transit node $T_k$.
-Likewise let $z_{kj}$ be the amount of flow on the link between a given transit node $T_k$ and destination node $D_j$.
+Notation: $[X] = \{1,2,3,....,X\}$.
+
+\subsection{Decision and auxiliary variables}
+Let $u_{ik}$ be the amount of flow on the link between a given source node $S_i$ and transit node $T_k$.
+Likewise let $v_{kj}$ be the amount of flow on the link between a given transit node $T_k$ and destination node $D_j$.
 
 Therefore, letting $x_{ikj}$ be the part of the demand volume between source node $S_i$ and destination node $D_j$ that is routed through transit node $T_k$, we achieve 
-\begin{equation}\label{1}
-	y_{ik} + z_{kj} = x_{ikj} 
+\begin{equation}\label{first}
+	u_{ik} + v_{kj} = x_{ikj} 
 \end{equation}
 $\forall i \in [X], k \in [Y], j \in [Z]$.
 
+Also, the total traffic flow into a transit node is equal to the total traffic flow out of the node.
+\begin{equation}
+	\sum_{i=1}^{X}u_{ik} = \sum_{j=1}^{Z}v_{kj}
+\end{equation}
+$\forall k \in [Y]$
+
+
+
 \subsection{objective function}\label{Sec: objf}
-The resulting \emph{utilisation} on a link between a given source node $S_i$ and transit node $T_k$ is given by $\frac{y_{ik}}{c_{ik}}$. Similarly, the resulting utilisation on a link between a given transit node $T_k$ and destination node $D_j$is given by $\frac{z_{kj}}{d_{kj}}$.
+The resulting \emph{utilisation} on a link between a given source node $S_i$ and transit node $T_k$ is given by $\frac{u_{ik}}{c_{ik}}$. Similarly, the resulting utilisation on a link between a given transit node $T_k$ and destination node $D_j$is given by $\frac{v_{kj}}{d_{kj}}$.
 
 We therefore formulate our objective function as.
-\begin{equation}\label{2}
-	r = \max(\frac{y_{ik}}{c_{ik}},\frac{z_{kj}}{d_{kj}}), \forall i \in [X], k \in [Y], j \in [Z]
-\end{equation}
+\begin{equation*}\label{2}
+	r = \max(\frac{u_{ik}}{c_{ik}},\frac{v_{kj}}{d_{kj}}), \forall i \in [X], k \in [Y], j \in [Z]
+\end{equation*}
 
-That is, we wish to minimise the greatest link utilisation. We now note that $r$ is piecewise linear in section \ref{Sec: Const} when considering constraints.
+That is, we wish to minimise the greatest link utilisation. We now note that $r$ is piecewise linear in section \ref{Sec: Const} when considering related constraints.
 
 \subsection{Demand constraints}
 We now turn our attention to the global requirement that each demand volume shall be split over exactly three different paths, such that each path gets an equal
 share of the demand volume.
 
-Firstly, we obviously must have the following for the demand volume between a source node $S_i$ and destination node $D_j$.
-\begin{equation}\label{3}
-	\sum_{k=1}^{Y}x_{ikj} = h_{ij} = i + j
+let $w_{ikj}$ be the indicator variable for the path between source node $i$ and destination node $j$ through transit node $k$, taking the value $1$ if path $i->k->j$ carries data and $0$ otherwise. With our 3 path restriction, we achieve
+\begin{equation}
+	\sum_{k=1}^{Y}w_{ikj} = 3
 \end{equation}
 
-This however, is somewhat wasteful when we consider the constraint that $x_{ikj}$ must be positive for exactly three values
-$k_1, k_2, k_3$  and must be zero for all other $k \in [Y]$.
-For each path $P_{ij}$, $i \in [X], j \in [Z]$, we will define,
-\begin{align*}
-	k_1 &= (j-1) \mod(Y)\\
-	k_2 &= j \mod(Y)\\
-	k_3 &= (j+1) \mod(Y)
-\end{align*}
-That is, we have selected those paths through the transit nodes directly 'above' and to the 'above to the side' of the destination node. This ensures an equal coverage EXPLAIN MORE HERE. This achieves the following constraints,
-\begin{align*}
-	x_{ik_1j} &> 0\\
-	x_{ik_2j} &> 0\\
-	x_{ik_3j} &> 0
-\end{align*}
-We would now like to write that $x_{ik_1j} + x_{ik_2j}  + x_{ik_3j} = h_{ij} = i + j$ but in fact, we can do better as these paths must receive an \emph{equal} share of the demand volume, hence,
-\begin{align*}
-	x_{ik_1j} = x_{ik_2j} = x_{ik_3j}= \frac{h_{ij}}{3} =\frac{i+j}{3} 
-\end{align*}
-Finally, we have the "no other paths" condition, 
-\begin{center}
-	$x_{ikj} = 0
-	\forall i \in [X], k \in [Y] -\{k_1,k_2,k_3\}, j \in [Z]$
-\end{center}
+Now to consider the demand volume between nodes $i$ and $j$.
+\begin{equation}
+	x_{ikj} = w_{ikj} \frac{h_{ij}}{3} = \frac{(i + j)}{3}w_{ikj}
+\end{equation}
 
+PROOF OF OPERATION HERE
 
 \subsection{Additional constraints}\label{Sec: Const} 
 \b{Capacity}:\\
 $\forall i \in [X], k \in [Y], j \in [Z]$, we have,
-\begin{align*}
-	y_{ik} &\leq c_{ik} \\
-	z_{kj} &\leq d_{kj}  
-\end{align*}
+\begin{align}
+	u_{ik} &\leq c_{ik} \\
+	v_{kj} &\leq d_{kj}  
+\end{align}
 
 Likewise, from out discussion in \ref{Sec: objf}, we have the following constraints regarding our objective function,
-\begin{align*}
-	y_{ik} &\leq c_{ik} r\\
-	z_{kj} &\leq d_{kj} r
-\end{align*}
+\begin{align}
+	u_{ik} &\leq c_{ik} r\\
+	v_{kj} &\leq d_{kj} r
+\end{align}
 
 Non-negativity:\\
 $\forall i \in [X], k \in [Y], j \in [Z]$, we have,
-\begin{align*}
+\begin{align}
 	x_{ikj} &\geq 0\\
-	y_{ik} &\geq 0\\
-	z_{kj} &\geq 0\\
-	r &\geq 0
-\end{align*}
+	u_{ik} &\geq 0\\
+	v_{kj} &\geq 0\\
+	r &\geq 0 \label{last}
+\end{align}
+
+\subsection{Model summary}
+Equations \ref{first} through to \ref{last} suffice to fully describe our optimisation problem.
 
 \section{Results}
 
