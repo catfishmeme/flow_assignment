@@ -51,15 +51,45 @@ We therefore formulate our objective function as.
 	r = \max(\frac{y_{ik}}{c_{ik}},\frac{z_{kj}}{d_{kj}}), \forall i \in [X], k \in [Y], j \in [Z]
 \end{equation}
 
-That is, we wish to minimise the greatest link utilisation. We now note that $r$ is piecewise linear in the next section when considering constraints.
+That is, we wish to minimise the greatest link utilisation. We now note that $r$ is piecewise linear in section \ref{Sec: Const} when considering constraints.
 
-\subsection{"splitting" requirement}
+\subsection{Demand constraints}
 We now turn our attention to the global requirement that each demand volume shall be split over exactly three different paths, such that each path gets an equal
 share of the demand volume.
 
-\subsection{additional constraints}
+Firstly, we obviously must have the following for the demand volume between a source node $S_i$ and destination node $D_j$.
+\begin{equation}\label{3}
+	\sum_{k=1}^{Y}x_{ikj} = h_{ij} = i + j
+\end{equation}
+
+This however, is somewhat wasteful when we consider the constraint that $x_{ikj}$ must be positive for exactly three values
+$k_1, k_2, k_3$  and must be zero for all other $k \in [Y]$.
+For each path $P_{ij}$, $i \in [X], j \in [Z]$, we will define,
+\begin{align*}
+	k_1 &= (j-1) \mod(Y)\\
+	k_2 &= j \mod(Y)\\
+	k_3 &= (j+1) \mod(Y)
+\end{align*}
+That is, we have selected those paths through the transit nodes directly 'above' and to the 'above to the side' of the destination node. This ensures an equal coverage EXPLAIN MORE HERE. This achieves the following constraints,
+\begin{align*}
+	x_{ik_1j} &> 0\\
+	x_{ik_2j} &> 0\\
+	x_{ik_3j} &> 0
+\end{align*}
+We would now like to write that $x_{ik_1j} + x_{ik_2j}  + x_{ik_3j} = h_{ij} = i + j$ but in fact, we can do better as these paths must receive an \emph{equal} share of the demand volume, hence,
+\begin{align*}
+	x_{ik_1j} = x_{ik_2j} = x_{ik_3j}= \frac{h_{ij}}{3} =\frac{i+j}{3} 
+\end{align*}
+Finally, we have the "no other paths" condition, 
+\begin{center}
+	$x_{ikj} = 0
+	\forall i \in [X], k \in [Y] -\{k_1,k_2,k_3\}, j \in [Z]$
+\end{center}
+
+
+\subsection{Additional constraints}\label{Sec: Const} 
 \b{Capacity}:\\
-$\forall i \in [X], k \in [Y], j \in [Z]$., we have,
+$\forall i \in [X], k \in [Y], j \in [Z]$, we have,
 \begin{align*}
 	y_{ik} &\leq c_{ik} \\
 	z_{kj} &\leq d_{kj}  
