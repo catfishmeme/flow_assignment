@@ -1,0 +1,132 @@
+
+\documentclass[12pt,twoside]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+\pagestyle{myheadings}
+\textwidth 160mm
+\textheight 220mm
+\oddsidemargin -.2cm
+\evensidemargin -.2cm
+\markboth{{\rm G.Drummond, R.Cox}}{{\rm {COSC364 Assignment 1}}}
+
+
+\begin{document}
+\title{COSC364 Assignment 2}
+\author{George Drummond(53243258), \\Ryan Cox(64656394)}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+The following discusses -------
+This was a joint work by George Drummond and Ryan Cox in accordance with the course requirements of COSC364-17S1 and is a result of \bf{equal} contribution ($50\% / 50\%$).
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+\section{ Problem formulation}
+We wish to formulate an optimization problem for generic values of X, Y and Z (with $ Y> 3$) such that the load on all transit nodes is balanced.
+
+\subsection{decision and auxiliary variables}
+Let $y_{ik}$ be the amount of flow on the link between a given source node $S_i$ and transit node $T_k$.
+Likewise let $z_{kj}$ be the amount of flow on the link between a given transit node $T_k$ and destination node $D_j$.
+
+Therefore, letting $x_{ikj}$ be the part of the demand volume between source node $S_i$ and destination node $D_j$ that is routed through transit node $T_k$, we achieve 
+\begin{equation}\label{1}
+	y_{ik} + z_{kj} = x_{ikj} 
+\end{equation}
+$\forall i \in [X], k \in [Y], j \in [Z]$.
+
+\subsection{objective function}\label{Sec: objf}
+The resulting \emph{utilisation} on a link between a given source node $S_i$ and transit node $T_k$ is given by $\frac{y_{ik}}{c_{ik}}$. Similarly, the resulting utilisation on a link between a given transit node $T_k$ and destination node $D_j$is given by $\frac{z_{kj}}{d_{kj}}$.
+
+We therefore formulate our objective function as.
+\begin{equation}\label{2}
+	r = \max(\frac{y_{ik}}{c_{ik}},\frac{z_{kj}}{d_{kj}}), \forall i \in [X], k \in [Y], j \in [Z]
+\end{equation}
+
+That is, we wish to minimise the greatest link utilisation. We now note that $r$ is piecewise linear in the next section when considering constraints.
+
+\subsection{"splitting" requirement}
+We now turn our attention to the global requirement that each demand volume shall be split over exactly three different paths, such that each path gets an equal
+share of the demand volume.
+
+\subsection{additional constraints}
+\b{Capacity}:\\
+$\forall i \in [X], k \in [Y], j \in [Z]$., we have,
+\begin{align*}
+	y_{ik} &\leq c_{ik} \\
+	z_{kj} &\leq d_{kj}  
+\end{align*}
+
+Likewise, from out discussion in \ref{Sec: objf}, we have the following constraints regarding our objective function,
+\begin{align*}
+	y_{ik} &\leq c_{ik} r\\
+	z_{kj} &\leq d_{kj} r
+\end{align*}
+
+Non-negativity:\\
+$\forall i \in [X], k \in [Y], j \in [Z]$, we have,
+\begin{align*}
+	x_{ikj} &\geq 0\\
+	y_{ik} &\geq 0\\
+	z_{kj} &\geq 0\\
+	r &\geq 0
+\end{align*}
+
+\section{Results}
+
+
+
+
+
+
+
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	%tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\newpage
+\section{LP generation source file}
+\lstinputlisting[language=python]{genLP.py}
+\newpage
+
+
+\section{References}\label{Sec: Ref}
+
+\end{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Non-relevent stuff below this line %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
