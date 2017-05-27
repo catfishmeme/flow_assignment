@@ -90,13 +90,22 @@ Proceeding in this fashion acts to minimise the greatest load on a transit node.
 
 
 \subsection{Demand constraints}
-We now turn our attention to demand constraints and the global requirement that each demand volume shall be split over exactly three different paths, such that each path gets an equal
+We now turn our attention to demand constraints and the global requirement that each demand volume $h_{ij}$ between nodes $S_i$ and $D_j$ shall be split over exactly three different paths, such that each path gets an equal
 share of the demand volume.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.5\textwidth]{splitting.png}
+	\caption{Splitting requirement}
+	\label{splitting}
+\end{figure}%
 
 let $w_{ikj}$ be the indicator variable for the path between source node $S_i$ and destination node $D_j$ through transit node $T_k$, taking the value $1$ if path $S_i->T_k->Z_j$ carries data and $0$ otherwise. With our 3 path restriction, we achieve
 \begin{equation}
 	\sum_{k=1}^{Y}w_{ikj} = 3,   \quad  \forall i \in [X],j \in [Z]
 \end{equation}
+
+
 Now to consider the demand volume between source node $S_i$ and destination node $D_j$. Firstly, we have that this demand volume is simply the sum of the parts of the demand volume through each transit router $T_k,\quad k \in [Y]$.
 \begin{equation*}
 	\sum_{k=1}^{Y}x_{ikj} = h_{ij}=i+j
