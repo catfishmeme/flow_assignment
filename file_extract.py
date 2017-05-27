@@ -1,4 +1,6 @@
 def file_extract(filename):
+    """a helper program that given an input LP file finds the amount of 
+    links and the link with the most capacity"""
     file = open(filename)
     count = 0
     maxcap = 0.0

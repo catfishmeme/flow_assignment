@@ -1,7 +1,19 @@
+"""
+#genLP.py
+#Authors: George Drummond - gmd44
+#         Ryan Cox - rlc96
+#Last Edit: 5/27/2017
+#
+#Given inputs from terminal generates an LP file with it's
+#set constraints that can be run by CPLEX to get a minimised solution
+#
+"""
+
+
 import sys
 
-
 def print_aux(X,Y,Z):
+     """prints """
      aux = ""
      for i in range(1,X+1):
           for k in range(1,Y+1):
@@ -22,6 +34,7 @@ def print_aux(X,Y,Z):
      
      
 def print_objective_constraints(X,Y,Z):
+     """prints """
      for k in range(1,Y+1):
           con = "l - "
           for i in range(1,X+1):
@@ -57,6 +70,7 @@ def print_demand(X,Y,Z):
      
      
 def print_capp(X,Y,Z):
+     """prints the capacity contraint of the links"""
      capp = ""
      for i in range(1,X+1):
           for k in range(1,Y+1):
@@ -73,6 +87,7 @@ def print_capp(X,Y,Z):
      
      
 def print_integer(X,Y,Z):
+     """"""
      integer = ""
      for i in range(1,X+1):
           for k in range(1,Y+1):
@@ -81,6 +96,7 @@ def print_integer(X,Y,Z):
      print(integer,end="")
      
 def print_nonneg(X,Y,Z):
+     """prints the constraint of a link being non negitive"""
      nonneg = ""
      for i in range(1,X+1):
           for k in range(1,Y+1):
@@ -99,6 +115,8 @@ def print_nonneg(X,Y,Z):
 
 
 def main():
+     """main function that gets inputs from terminal and runs them through
+     the printing functions"""
      (X,Y,Z) = sys.argv[1:4]
      X = int(X)
      Y = int(Y)
