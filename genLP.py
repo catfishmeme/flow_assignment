@@ -38,7 +38,7 @@ def print_demand(X,Y,Z):
           for j in range(1,Z+1):
                mysum =  ""
                for k in range(1,Y+1):
-                    demand += "x{0}{1}{2} - {3}w{0}{1}{2} = 0\n".format(i,k,j,(i+j)/3)
+                    demand += "x{0}{1}{2} - {3} w{0}{1}{2} = 0\n".format(i,k,j,(i+j)/3)
                     mysum += "w{}{}{} + ".format(i,k,j)
                     
                     
@@ -75,8 +75,8 @@ def print_capp(X,Y,Z):
 def print_integer(X,Y,Z):
      integer = ""
      for i in range(1,X+1):
-          for k in range(1,Y+1):
-               for j in range(1,Z+1):
+          for j in range(1,Z+1):
+               for k in range(1,Y+1):
                     integer += "w{}{}{}\n".format(i,k,j)
      print(integer,end="")
      
