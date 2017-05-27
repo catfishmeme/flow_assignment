@@ -81,9 +81,7 @@ To \emph{balance} this load across the transit nodes, we define our objective fu
 \begin{equation*}
  l = \max{l_k} = \max{\sum_{i=1}^{X}u_{ik}},   \quad  \forall k \in [Y]
 \end{equation*}
-As proceeding in this fashion minimises the greatest load on a transit node.
-
-This will therefore require Y constraint equations of the form.
+Proceeding in this fashion acts to minimise the greatest load on a transit node. The piecewise linear interpretation of this is as follows.
 
 \begin{equation}
 	l \geq \sum_{i=1}^{X}u_{ik},   \quad  \forall k \in [Y]
@@ -92,25 +90,30 @@ This will therefore require Y constraint equations of the form.
 
 
 \subsection{Demand constraints}
-We now turn our attention to the global requirement that each demand volume shall be split over exactly three different paths, such that each path gets an equal
+We now turn our attention to demand constraints and the global requirement that each demand volume shall be split over exactly three different paths, such that each path gets an equal
 share of the demand volume.
 
 let $w_{ikj}$ be the indicator variable for the path between source node $S_i$ and destination node $D_j$ through transit node $T_k$, taking the value $1$ if path $S_i->T_k->Z_j$ carries data and $0$ otherwise. With our 3 path restriction, we achieve
 \begin{equation}
 	\sum_{k=1}^{Y}w_{ikj} = 3,   \quad  \forall i \in [X],j \in [Z]
 \end{equation}
-
 Now to consider the demand volume between source node $S_i$ and destination node $D_j$. Firstly, we have that this demand volume is simply the sum of the parts of the demand volume through each transit router $T_k,\quad k \in [Y]$.
 \begin{equation*}
 	\sum_{k=1}^{Y}x_{ikj} = h_{ij}=i+j
 \end{equation*}
-
-However, we also have that $x_{ikj}$ will be non-zero if and only if there is flow on path $S_i->T_k->Z_j$ ($w_{ikj} = 1$). As this occurs for precisely 3 $x_{ikj}$ and this demand is shared \emph{equally} we achieve the following.
+However, we also have that $x_{ikj}$ will be non-zero if and only if there is flow on path $S_i->T_k->Z_j$ ($w_{ikj} = 1$). As this occurs for precisely 3 $x_{ikj}$ (say $x_{ik_1j}, x_{ik_2j}, x_{ik_3j}$) and the demand $h_{ij}$ is shared \emph{equally} across the paths that do possess flows, we achieve the following.
+\[
+x_{ikj}  = \left\{\begin{array}{lr}
+\frac{(i + j)}{3}, & \text{if } w_{ikj} = 1\\
+0, & \text{if } w_{ikj} = 0
+\end{array}\right\}
+\]
+Or explicitly.
 \begin{equation}
 	x_{ikj} = w_{ikj} \frac{h_{ij}}{3} = \frac{(i + j)}{3}w_{ikj},\quad  \forall i \in [X],k \in [Y],j \in [Z]
 \end{equation}
 
-PROOF OF OPERATION HERE
+
 
 \subsection{Additional constraints}\label{Sec: Const} 
 \b{Capacity}:\\
