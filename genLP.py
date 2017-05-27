@@ -36,23 +36,20 @@ def print_demand(X,Y,Z):
      demand = ""
      for i in range(1,X+1):
           for j in range(1,Z+1):
-               mysum1 = mysum2 = mysum3 = ""
+               mysum =  ""
                for k in range(1,Y+1):
                     demand += "x{0}{1}{2} - {3}w{0}{1}{2} = 0\n".format(i,k,j,(i+j)/3)
-                    mysum1 += "w{}{}{} + ".format(i,k,j)
-                    mysum2 += "w{0}{1}{2} x{0}{1}{2} + ".format(i,k,j)
-                    mysum3 += "x{}{}{} + ".format(i,k,j)
+                    mysum += "w{}{}{} + ".format(i,k,j)
+                    
                     
                
-               mysum1 = mysum1[:-2] + "= "
-               mysum2 = mysum2[:-2] + "= "
-               mysum3 = mysum3[:-2] + "= "
+               mysum = mysum[:-2] + "= "
                
-               mysum1 += "3"
-               mysum2 += str(i + j)
-               mysum3 += str(i + j)
                
-               demand += mysum1 + "\n" #+ mysum2 + "\n" + mysum3+ "\n"
+               mysum += "3"
+               
+               
+               demand += mysum + "\n"
                          
                 
               
