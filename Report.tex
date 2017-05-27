@@ -60,12 +60,17 @@ The objective of this linear program is to balance the load (total \emph{incomin
 \end{align*}
 
 
-To \emph{balance} this load across the transit nodes, we define our objective function as a common load $l$ by
-\begin{equation}
- l = l_k = \sum_{i=1}^{X}u_{ik},   \quad  \forall k \in [Y]
-\end{equation}
+To \emph{balance} this load across the transit nodes, we define our objective function $l$ by
+\begin{equation*}
+ l = \max{l_k} = \max{\sum_{i=1}^{X}u_{ik}},   \quad  \forall k \in [Y]
+\end{equation*}
+As we wish to minimise the greatest load on a transit node.
 
-This will therefore require Y constraint equations to describe.
+This will therefore require Y constraint equations of the form.
+
+\begin{equation}
+	l \geq \sum_{i=1}^{X}u_{ik},   \quad  \forall k \in [Y]
+\end{equation}
 
 
 

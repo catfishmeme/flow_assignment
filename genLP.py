@@ -27,7 +27,7 @@ def print_objective_constraints(X,Y,Z):
           for i in range(1,X+1):
                con += "u{}{} - ".format(i,k)
                
-          con = con[:-2] + "= 0"
+          con = con[:-2] + ">= 0"
           
           print(con)
      
