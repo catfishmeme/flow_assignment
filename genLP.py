@@ -4,8 +4,7 @@
 #         Ryan Cox - rlc96
 #Last Edit: 5/27/2017
 #
-#Given inputs from terminal generates an LP file with it's
-#set constraints that can be run by CPLEX to get a minimised solution
+#Given inputs X, Y, Z generates an LP file aiming to minimise the load on transit nodes
 #
 """
 
@@ -13,7 +12,7 @@
 import sys
 
 def print_aux(X,Y,Z):
-     """prints """
+     """prints constraints pertaining to auxilary variables """
      aux = ""
      for i in range(1,X+1):
           for k in range(1,Y+1):
@@ -34,7 +33,6 @@ def print_aux(X,Y,Z):
      
      
      
-     
      for k in range(1,Y+1):
           mysum = ""
           for i in range(1,X+1):
@@ -47,7 +45,7 @@ def print_aux(X,Y,Z):
      
      
 def print_objective_constraints(X,Y,Z):
-     """prints """
+     """prints constraints pertaining to objective function"""
      for k in range(1,Y+1):
           con = "l - "
           for i in range(1,X+1):
@@ -67,14 +65,8 @@ def print_demand(X,Y,Z):
                     demand += "x{0}{1}{2} - {3} w{0}{1}{2} = 0\n".format(i,k,j,(i+j)/3)
                     mysum += "w{}{}{} + ".format(i,k,j)
                     
-                    
-               
                mysum = mysum[:-2] + "= "
-               
-               
                mysum += "3"
-               
-               
                demand += mysum + "\n"
                          
                 
@@ -100,7 +92,7 @@ def print_capp(X,Y,Z):
      
      
 def print_integer(X,Y,Z):
-     """"""
+     """prints integer declarations"""
      integer = ""
      for i in range(1,X+1):
           for j in range(1,Z+1):
@@ -128,8 +120,7 @@ def print_nonneg(X,Y,Z):
 
 
 def main():
-     """main function that gets inputs from terminal and runs them through
-     the printing functions"""
+     """main function that recieves input X, Y, Z to produce valid LP file"""
      (X,Y,Z) = sys.argv[1:4]
      X = int(X)
      Y = int(Y)
