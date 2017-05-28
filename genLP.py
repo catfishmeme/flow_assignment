@@ -17,10 +17,23 @@ def print_aux(X,Y,Z):
      aux = ""
      for i in range(1,X+1):
           for k in range(1,Y+1):
+               aux = "u{}{}".format(i,k)
                for j in range(1,Z+1):
-                    aux += "u{0}{1} + v{1}{2} - x{0}{1}{2} = 0\n".format(i,k,j)
-                    
-     print(aux,end="")
+                    aux += " - x{0}{1}{2}".format(i,k,j)
+               aux += " = 0\n"
+               print(aux,end="")
+     
+     
+     for j in range(1,Z+1):
+          for k in range(1,Y+1):
+               aux = "v{}{}".format(k,j)
+               for i in range(1,X+1):
+                    aux += " - x{0}{1}{2}".format(i,k,j)
+               aux += " = 0\n"
+               print(aux,end="")
+     
+     
+     
      
      for k in range(1,Y+1):
           mysum = ""

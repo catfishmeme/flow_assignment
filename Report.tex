@@ -36,13 +36,14 @@ We wish to formulate an optimization problem for generic values of X, Y and Z (w
 \emph{Notation}: $[X] = \{1,2,3,....,X\}$.
 
 \subsection{Decision and auxiliary variables}
-Let $u_{ik}$ be the amount of flow on the link between a given source node $S_i$ and transit node $T_k$.
-Likewise let $v_{kj}$ be the amount of flow on the link between a given transit node $T_k$ and destination node $D_j$.
+Let $u_{ik}$ be the total amount of flow on the link between a given source node $S_i$ and transit node $T_k$.
+Likewise let $v_{kj}$ be the total amount of flow on the link between a given transit node $T_k$ and destination node $D_j$.
 
 Therefore, letting $x_{ikj}$ be the part of the demand volume between source node $S_i$ and destination node $D_j$ that is routed through transit node $T_k$, we achieve 
-\begin{equation}\label{first}
-	u_{ik} + v_{kj} = x_{ikj} 
-\end{equation}
+\begin{align}\label{first}
+	u_{ik} &= \sum_{j=1}^{Z}x_{ikj}\\
+	v_{kj} &= \sum_{i=1}^{X}x_{ikj}
+\end{align}
 $\forall i \in [X], k \in [Y], j \in [Z]$.
 
 Also, the total traffic flow into a transit node is equal to the total traffic flow out of the node, achieving the following balance.
