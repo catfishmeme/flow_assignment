@@ -4,7 +4,7 @@
 #         Ryan Cox - rlc96
 #Last Edit: 5/27/2017
 #
-#Given inputs X, Y, Z generates an LP file aiming to minimise the load on transit nodes
+#Given inputs (X, Y, Z) generates an LP file aiming to minimise the load on transit nodes
 #
 """
 

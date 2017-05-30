@@ -16,7 +16,7 @@
 \textheight 220mm
 \oddsidemargin -.2cm
 \evensidemargin -.2cm
-\markboth{{\rm G.Drummond, R.Cox}}{{\rm {COSC364 Assignment 1}}}
+\markboth{{\rm G.Drummond, R.Cox}}{{\rm {COSC364 Assignment 2}}}
 
 
 \begin{document}
@@ -146,14 +146,14 @@ $\forall i \in [X], k \in [Y], j \in [Z]$, we have,
 	l &\geq 0 \label{last}
 \end{align}
 
-\section{Results}
+\section{Results}\label{results}
 The following are the results for fixing X=7, Z = 7 and varying $Y \in {\{3,4,5,6,7\}}$.\\
 \begin{center}
 	\csvautobooktabular{record.csv}
 \end{center}
 
 \section{Discussion}
-We can see that as we add more transit nodes between the source and destination nodes that generally the time taken to solve the LP file increases. Also, adding more transit nodes rightly reduces the maximum load. The highest capacity link seems to stay the same as we are only changing the amount of transit nodes the link capacity stays the same and only when we add more nodes does the capacity decrease 
+We can see from section \ref{results}, that the time taken to solve the LP file appears to increase with increasing number of transit nodes (and therefore model complexity). Also, adding more transit nodes rightly reduces the maximum load. The highest link capacity however, appears to relatively consistent until the full 7 transit nodes are introduced.
 
 
 
